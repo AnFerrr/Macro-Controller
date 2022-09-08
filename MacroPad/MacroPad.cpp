@@ -13,6 +13,8 @@ OStreamManager SetupLogger() {
 	sm.output_flags = OStream1;
 
 	std::cout << "" << "Initilizing plugin manager..." << std::endl;
+	
+	file.close();
 }
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
@@ -21,7 +23,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 	PluginSDK::PluginManager pm;
 	pm.LoadPlugins();
 	system("pause");
-	file.close();
 }
 
 // TODO : Logger initialization
