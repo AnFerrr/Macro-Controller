@@ -5,7 +5,7 @@
 #include "MacroPad.h"
 #include "utils.h"
 
-OStreamManager SetupLogger{
+OStreamManager SetupLogger() {
 	std::ofstream file;
 	file.open("out.debug");
 
@@ -16,6 +16,7 @@ OStreamManager SetupLogger{
 	
 	file.close();
 }
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
 	StartConsole();
 
