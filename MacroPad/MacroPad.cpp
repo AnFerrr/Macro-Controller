@@ -54,14 +54,3 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 //PluginSDK::PluginPointer& plugin = pm.GetPlugin("wxWidgetWrapper");
 //std::cout << plugin->GetName();
 //system("pause");
-=======
-    std::ofstream file;
-    file.open("out.debug");
-    file << "uuuuuh?" << std::endl;
-    file << pm.GetPluginList();
-    file.close();
-    //::ShowWindow(::GetConsoleWindow(), SW_SHOW);
-    //pm.StartUI();
-    system("pause");
-}
->>>>>>> 77f1fbf (Quick git check)
