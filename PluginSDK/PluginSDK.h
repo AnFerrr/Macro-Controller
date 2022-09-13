@@ -92,6 +92,8 @@ namespace PluginSDK {
 		*/
 		std::string GetPluginList();
 
+		PluginPointer& GetPlugin(std::string name);
+
 		void StartUI() {
 			plugins[0].get()->StartUI();
 		}
@@ -113,7 +115,6 @@ namespace PluginSDK {
 }
 
 
-// TODO : complete Macro to simplify registering for end devs 
-// TODO : Double defining class
+// TODO : complete Macro to simplify registering for end devs
 // TODO : System tray notification mode
 // TODO : Main process + windows process

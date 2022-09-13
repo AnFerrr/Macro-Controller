@@ -34,7 +34,8 @@ namespace PluginSDK {
 		for (auto& plugin : plugin_list) {
 			HINSTANCE handle = LoadLibraryA(plugin.c_str());
 			register_plugin regPlug = (register_plugin)GetProcAddress(handle, "Register");
-			regPlug(*this);
+			if (regPlug)
+				regPlug(*this);
 		}
 	}
 

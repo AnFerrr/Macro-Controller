@@ -2,32 +2,52 @@
 #define UNICODE
 #endif 
 
-#include <windows.h>
-#include <iostream>
-#include <fstream>
-#include "tchar.h"
-#include <WinUser.h>
+#include "MacroPad.h"
+#include "utils.h"
 
-#include "PluginSDK.h"
-#include <cstdio>
+OStreamManager SetupLogger() {
+	std::ofstream file;
+	file.open("out.debug");
 
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-    
-    PluginSDK::PluginManager pm;
-    pm.LoadPlugins();
+	OStreamManager sm(std::cout, file);
+	sm.output_flags = OStream1;
 
-
-    AllocConsole();
-    FILE* newstdout = nullptr;
-    freopen_s(&newstdout, "CONOUT$", "w", stdout);
-    std::cout.clear();
-
-    std::ofstream file;
-    file.open("out.debug");
-    file << "uh?" << std::endl;
-    file << pm.GetPluginList();
-    file.close();
-    //::ShowWindow(::GetConsoleWindow(), SW_SHOW);
-    //pm.StartUI();
-    system("pause");
+	std::cout << "" << "Initilizing plugin manager..." << std::endl;
 }
+
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
+	StartConsole();
+
+	PluginSDK::PluginManager pm;
+	pm.LoadPlugins();
+	system("pause");
+	file.close();
+}
+
+// TODO : Logger initialization
+// TODO : cout << time
+// TODO : Debug
+// TODO : Unit tests
+// TODO : Exceptions
+// TODO : Better plugins
+// TODO : Template
+// TODO : Ardoise
+
+//PluginSDK::PluginManager pm;
+//pm.LoadPlugins();
+//
+//AllocConsole();
+//FILE* newstdout = nullptr;
+//freopen_s(&newstdout, "CONOUT$", "w", stdout);
+//std::cout.clear();
+//
+//std::ofstream file;
+//file.open("out.debug");
+//file << "uh?" << std::endl;
+//file << pm.GetPluginList();
+//file.close();
+////::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+////pm.StartUI();
+//PluginSDK::PluginPointer& plugin = pm.GetPlugin("wxWidgetWrapper");
+//std::cout << plugin->GetName();
+//system("pause");
