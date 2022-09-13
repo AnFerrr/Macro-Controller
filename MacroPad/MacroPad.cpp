@@ -25,6 +25,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 	system("pause");
 }
 
+
 // TODO : Logger initialization
 // TODO : cout << time
 // TODO : Debug
