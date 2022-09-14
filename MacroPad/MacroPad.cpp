@@ -5,10 +5,9 @@
 #include "MacroPad.h"
 #include "utils.h"
 
-OStreamManager SetupLogger() {
+OStreamManager StartLogger(){
 	std::ofstream file;
 	file.open("out.debug");
-
 	OStreamManager sm(std::cout, file);
 	sm.output_flags = OStream1;
 
@@ -23,6 +22,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 	PluginSDK::PluginManager pm;
 	pm.LoadPlugins();
 	system("pause");
+	file.close();
 	return 0;
 }
 
