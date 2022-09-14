@@ -26,15 +26,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 	return 0;
 }
 
+// TODO : Time format string
+// TODO : cout << time
 // TODO : Macro CPP version guard
 // TODO : Logger initialization
-// TODO : cout << time
+// TODO : Fix not all control paths return a value "bool function(string name, PluginPointer& pp)", "Maybe<T> function(string name)" or exceptions
+// TODO : Exceptions
 // TODO : Debug
 // TODO : Unit tests
-// TODO : Exceptions
 // TODO : Better plugins
 // TODO : Template
-// TODO : Fix not all control paths return a value "bool function(string name, PluginPointer& pp)", "Maybe<T> function(string name)" or exceptions
 // TODO : Ardoise
 
 //PluginSDK::PluginManager pm;
