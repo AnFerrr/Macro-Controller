@@ -1,5 +1,3 @@
-#pragma once
-
 #include <windows.h>
 #include <ostream>
 #include <WinUser.h>
