@@ -4,12 +4,15 @@
 #include <filesystem>
 #include <regex>
 #include <fstream>
-#include <dirent.h>
 
 #if __cplusplus >= 201703L
 #define CPP17
 #else
 #define CPPOLDER
+#endif
+
+#ifndef CPP17
+#include <dirent.h>
 #endif
 
 #ifdef CPP17
@@ -28,17 +31,16 @@ namespace PluginSDK {
 		return std::regex_match(filename, std::regex(".+\\.dll"));
 	}
 
-	#ifdef CPP2017
+#ifdef CPP17
 	std::vector<string> PluginManager::ListPluginsInDirectory() {
 		std::vector<string> plugins;
 		string path = pluginsDir;
 		for (const auto& entry : fs::directory_iterator(path))
-			if (isDLL(entry))
+			if (isDLL(entry.path().filename().string()))
 				plugins.push_back(entry.path().string());
 		return plugins;
 	}
-	#endif
-
+#else
 	std::vector<string> PluginManager::ListPluginsInDirectory() {
 		DIR *dir; struct dirent *diread;
 		std::vector<string> plugins;
@@ -55,6 +57,7 @@ namespace PluginSDK {
 	    }
 		return plugins;
 	}
+#endif
 
 	void PluginManager::LoadPlugins() {
 		std::vector<std::string> plugin_list = ListPluginsInDirectory();

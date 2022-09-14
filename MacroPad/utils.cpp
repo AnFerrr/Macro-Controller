@@ -5,7 +5,7 @@ OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&))
 	UpdateTime();
 	if (output_flags & OStream1) os1_ << std::put_time(&tm, "%T   %F") << os;
 	if (output_flags & OStream2) os2_ << std::put_time(&tm, "%T   %F") << os;
-	if (output_flags & OFstream) *ofs_ << std::put_time(&tm, "%T   %F") << os;
+	if (output_flags & OFstream) ofs_ << std::put_time(&tm, "%T   %F") << os;
 	return *this;
 }
 
