@@ -364,3 +364,17 @@ FodyWeavers.xsd
 
 # Debug and Log Output
 *.debug
+
+# Compilation files
+*.o
+*.a
+*.exe
+
+# Embarcadero files
+*.dev
+MacroPad/MacroPad.h.gch
+MacroPad/MacroPad.layout
+MacroPad/Makefile.win
+PluginSDK/Makefile.win
+PluginSDK/PluginSDK.layout
+PluginSDK/Untitled2
