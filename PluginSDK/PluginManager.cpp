@@ -4,8 +4,17 @@
 #include <filesystem>
 #include <regex>
 #include <fstream>
+#include <dirent.h>
 
+#if __cplusplus >= 201703L
+#define CPP17
+#else
+#define CPPOLDER
+#endif
+
+#ifdef CPP17
 namespace fs = std::filesystem;
+#endif
 
 namespace PluginSDK {
 
@@ -15,17 +24,35 @@ namespace PluginSDK {
 
 	PluginManager::~PluginManager() {}
 
-	bool isDLL(std::filesystem::directory_entry entry) {
-		return std::regex_match(entry.path().filename().string(),
-			std::regex(".+\\.dll"));
+	bool isDLL(std::string filename) {
+		return std::regex_match(filename, std::regex(".+\\.dll"));
 	}
 
+	#ifdef CPP2017
 	std::vector<string> PluginManager::ListPluginsInDirectory() {
 		std::vector<string> plugins;
 		string path = pluginsDir;
 		for (const auto& entry : fs::directory_iterator(path))
 			if (isDLL(entry))
 				plugins.push_back(entry.path().string());
+		return plugins;
+	}
+	#endif
+
+	std::vector<string> PluginManager::ListPluginsInDirectory() {
+		DIR *dir; struct dirent *diread;
+		std::vector<string> plugins;
+		string path = pluginsDir;
+
+		if ((dir = opendir(pluginsDir.c_str())) != nullptr) {
+        	while ((diread = readdir(dir)) != nullptr) {
+        		path = pluginsDir + "/" + diread->d_name;
+            	plugins.push_back(path);
+        	}
+        	closedir (dir);
+    	} else {
+        	perror ("opendir");
+	    }
 		return plugins;
 	}
 
