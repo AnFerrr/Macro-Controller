@@ -8,6 +8,7 @@
 OStreamManager SetupLogger{
 	std::ofstream file;
 	file.open("out.debug");
+
 	OStreamManager sm(std::cout, file);
 	sm.output_flags = OStream1;
 
