@@ -5,17 +5,9 @@
 #include <regex>
 #include <fstream>
 
-#if __cplusplus >= 201703L
-#define CPP17
-#else
-#define CPPOLDER
-#endif
-
 #ifndef CPP17
 #include <dirent.h>
-#endif
-
-#ifdef CPP17
+#else
 namespace fs = std::filesystem;
 #endif
 

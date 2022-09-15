@@ -6,19 +6,15 @@
 #include "utils.h"
 
 OStreamManager StartLogger(){
-	std::ofstream file;
-	file.open("out.debug");
+	std::string file("debug.out");
+	OStreamManager sm(std::cout, std::cerr, OStream1 | OStream2);
 
-	OStreamManager sm(std::cout, file);
-	sm.output_flags = OStream1;
-
-	std::cout << "" << "Initilizing plugin manager..." << std::endl;
-	
-	file.close();
+	system("pause");
 }
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
 	StartConsole();
+	StartLogger();
 
 	PluginSDK::PluginManager pm;
 	pm.LoadPlugins();
