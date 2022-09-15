@@ -40,7 +40,6 @@ public:
 
 	template<class T>
 	OStreamManager& operator<<(const T& x) {
-		UpdateTime();
 		if (output_flags & OStream1) os1_ << x;
 		if (output_flags & OStream2) os2_ << x;
 		if (output_flags & OFstream) ofs_ << x;
@@ -50,6 +49,7 @@ public:
 	OStreamManager& operator<<(std::ostream& (*os)(std::ostream&));
 
 	OStreamManager& LogTime();
+	void UpdateTime();
 
 private:
 	std::tm tm;

@@ -2,7 +2,6 @@
 
 OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&))
 {
-	UpdateTime();
 	if (output_flags & OStream1) os1_ << os;
 	if (output_flags & OStream2) os2_ << os;
 	if (output_flags & OFstream) ofs_ << os;
@@ -16,9 +15,9 @@ void OStreamManager::UpdateTime() {
 
 OStreamManager& OStreamManager::LogTime() {
 	UpdateTime();
-	if (output_flags & OStream1) os1_ << std::put_time(&tm, "%T   %F");
-	if (output_flags & OStream2) os2_ << std::put_time(&tm, "%T   %F");
-	if (output_flags & OFstream) ofs_ << std::put_time(&tm, "%T   %F");
+	if (output_flags & OStream1) os1_ << std::put_time(&tm, TIME_FORMAT_STRING);
+	if (output_flags & OStream2) os2_ << std::put_time(&tm, TIME_FORMAT_STRING);
+	if (output_flags & OFstream) ofs_ << std::put_time(&tm, TIME_FORMAT_STRING);
 }
 
 void StartConsole() {
