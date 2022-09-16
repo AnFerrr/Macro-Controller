@@ -2,6 +2,8 @@
 
 OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&))
 {
+	if ((output_flags & (output_flags + 1)) != 0)
+		throw std::invalid_argument("Manager set to write to file even though none have been open.");
 	if (output_flags & OStream1) os1_ << os;
 	if (output_flags & OStream2) os2_ << os;
 	if (output_flags & OFStream) ofs_ << os;
@@ -14,6 +16,8 @@ void OStreamManager::UpdateTime() {
 }
 
 void OStreamManager::LogTime() {
+	if ((output_flags & (output_flags + 1)) != 0)
+		throw std::invalid_argument("Manager set to write to file even though none have been open.");
 	UpdateTime();
 	if (output_flags & OStream1) os1_ << std::put_time(&tm, TIME_FORMAT_STRING);
 	if (output_flags & OStream2) os2_ << std::put_time(&tm, TIME_FORMAT_STRING);

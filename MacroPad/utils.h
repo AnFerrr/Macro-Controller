@@ -4,6 +4,7 @@
 #include <fstream>
 #include <windows.h>
 #include <iomanip>
+#include <stdexcept>
 
 #ifdef CPP11
 #define TIME_FORMAT_STRING "%T   %F :  "
@@ -49,7 +50,7 @@ public:
 	template<class T>
 	OStreamManager& operator<<(const T& x) {
 		if ((output_flags & (output_flags + 1)) != 0)
-			std::cout << "OH NO!!!";
+			throw std::invalid_argument("Manager set to write to file even though none have been open.");
 		if (output_flags & OStream1) os1_ << x;
 		if (output_flags & OStream2) os2_ << x;
 		if (output_flags & OFStream) ofs_ << x;

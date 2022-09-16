@@ -8,7 +8,7 @@
 OStreamManager sm(std::cout, std::cerr, OStream1 | OFStream);
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
-	StartConsole();
+ 	StartConsole();
 	
 	sm.LogTime();
 	sm << "test";
