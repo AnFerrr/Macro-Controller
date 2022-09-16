@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <regex>
 #include <fstream>
+#include "..\MacroPad\compile_guards.h"
 
 #ifndef CPP17
 #include <dirent.h>

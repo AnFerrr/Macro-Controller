@@ -5,7 +5,7 @@
 #include "MacroPad.h"
 #include "utils.h"
 
-OStreamManager sm(std::cout, "debug.out", OStream1 | OStream2);
+OStreamManager sm(std::cout, std::cerr, OStream1 | OFStream);
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
 	StartConsole();
@@ -19,17 +19,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 	return 0;
 }
 
-// TODO : Time format string
-// TODO : cout << time
-// TODO : Macro CPP version guard
-// TODO : Logger initialization
-// TODO : Fix not all control paths return a value "bool function(string name, PluginPointer& pp)", "Maybe<T> function(string name)" or exceptions
-// TODO : Exceptions
-// TODO : Debug
-// TODO : Unit tests
-// TODO : Better plugins
-// TODO : Template
-// TODO : Ardoise
+//TODO : Debug
+//TODO : Template
+//TODO : Ardoise
 
 //PluginSDK::PluginManager pm;
 //pm.LoadPlugins();

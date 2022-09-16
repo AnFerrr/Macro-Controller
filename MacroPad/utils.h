@@ -14,7 +14,7 @@
 enum outputs {
 	OStream1 = 0x01,
 	OStream2 = 0x02,
-	OFstream = 0x04
+	OFStream = 0x04
 };
 
 typedef unsigned char LoggerOutputFlags;
@@ -23,16 +23,24 @@ class OStreamManager {
 public:
 	void UpdateTime();
 
-	OStreamManager(std::ostream& os1, std::ostream& os2, LoggerOutputFlags output_flags = 0x03) :
-		os1_(os1), os2_(os2), output_flags(output_flags) {
+	OStreamManager(std::ostream& os1, std::ostream& os2, const LoggerOutputFlags flags = OStream1 | OStream2) :
+		os1_(os1), os2_(os2),
+		output_flags(flags),
+		defined_ouputs_(OStream1 | OStream2) {
 			UpdateTime();
 	};
-	OStreamManager(std::ostream& os1, std::string const & filename, LoggerOutputFlags output_flags = 0x05) :
-		os1_(os1), os2_(std::cerr), ofs_(filename.c_str(), std::ios::out), output_flags(output_flags) {
+
+	OStreamManager(std::ostream& os1, std::string const & filename, LoggerOutputFlags flags = OStream1 | OFStream) :
+		os1_(os1), os2_(std::cerr), ofs_(filename.c_str(), std::ios::out),
+		output_flags(flags),
+		defined_ouputs_(OStream1 | OFStream) {
 			UpdateTime();
 	};
-	OStreamManager(LoggerOutputFlags output_flags = 0x03) :
-		os1_(std::cout), os2_(std::cerr), output_flags(output_flags) {
+
+	OStreamManager(LoggerOutputFlags flags = OStream1 | OStream2) :
+		os1_(std::cout), os2_(std::cerr),
+		output_flags(flags),
+		defined_ouputs_(OStream1 | OStream2) {
 			UpdateTime();
 	};
 
@@ -40,16 +48,17 @@ public:
 
 	template<class T>
 	OStreamManager& operator<<(const T& x) {
+		if ((output_flags & (output_flags + 1)) != 0)
+			std::cout << "OH NO!!!";
 		if (output_flags & OStream1) os1_ << x;
 		if (output_flags & OStream2) os2_ << x;
-		if (output_flags & OFstream) ofs_ << x;
+		if (output_flags & OFStream) ofs_ << x;
 		return *this;
 	}
 
 	OStreamManager& operator<<(std::ostream& (*os)(std::ostream&));
 
-	OStreamManager& LogTime();
-	void UpdateTime();
+	void LogTime();
 
 private:
 	std::tm tm;
@@ -58,6 +67,8 @@ private:
 	std::ostream& os1_;
 	std::ostream& os2_;
 	std::ofstream ofs_;
+
+	LoggerOutputFlags defined_ouputs_;
 };
 
 void StartConsole();
