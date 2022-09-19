@@ -5,13 +5,9 @@
 #include "MacroPad.h"
 #include "utils.h"
 
-OStreamManager sm(std::cout, std::cerr, OStream1 | OFStream);
-
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
- 	StartConsole();
-	
-	sm.LogTime();
-	sm << "test";
+	StartConsole();
+	OStreamManager sm(std::cout, "MacroDebug.out", OStream1 | OFStream);
 
 	PluginSDK::PluginManager pm;
 	pm.LoadPlugins();
