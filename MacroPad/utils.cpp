@@ -34,7 +34,6 @@ OStreamManager::OStreamManager(LoggerOutputFlags flags, bool throw_on_danger) :
 	throw_on_danger_(throw_on_danger) {
 		TestOutputSchemeValidity();
 };
-#include <bitset>
 
 bool OStreamManager::IsOutputSchemeValid() {
 	UpdateTime();
