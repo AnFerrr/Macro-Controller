@@ -1,7 +1,7 @@
 #include "utils.h"
 
 OStreamManager::OStreamManager(std::ostream& os1, std::ostream& os2,
-		const LoggerOutputFlags flags, bool throw_on_danger) :
+		const LoggerOutputFlags& flags, const bool& throw_on_danger) :
 	os1_(os1), os2_(os2),
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OStream2),
@@ -9,14 +9,14 @@ OStreamManager::OStreamManager(std::ostream& os1, std::ostream& os2,
 		TestOutputSchemeValidity();
 };
 
-OStreamManager::OStreamManager(std::ostream& os1, std::string const& filename,
-		LoggerOutputFlags flags, bool throw_on_danger) :
+OStreamManager::OStreamManager(std::ostream& os1, const std::string& filename,
+		const LoggerOutputFlags& flags, const bool& throw_on_danger) :
 	os1_(os1), os2_(std::cerr), ofs_(filename.c_str(), std::ios::out),
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OFStream),
 	throw_on_danger_(throw_on_danger) {
 		UpdateTime();
-		if (ofs_.is_open()) {
+		if (!ofs_.is_open()) {
 			output_flags &= ~OFStream;
 			defined_ouputs_ &= ~OFStream;
 			std::cerr << std::put_time(&tm_, TIME_FORMAT_STRING);
@@ -27,7 +27,7 @@ OStreamManager::OStreamManager(std::ostream& os1, std::string const& filename,
 		TestOutputSchemeValidity();
 };
 
-OStreamManager::OStreamManager(LoggerOutputFlags flags, bool throw_on_danger) :
+OStreamManager::OStreamManager(const LoggerOutputFlags& flags, const bool& throw_on_danger) :
 	os1_(std::cout), os2_(std::cerr),
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OStream2),
@@ -35,8 +35,27 @@ OStreamManager::OStreamManager(LoggerOutputFlags flags, bool throw_on_danger) :
 		TestOutputSchemeValidity();
 };
 
-bool OStreamManager::IsOutputSchemeValid() {
-	UpdateTime();
+OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&)) {
+	TestOutputSchemeValidity();
+	if (output_flags & OStream1) os1_ << os;
+	if (output_flags & OStream2) os2_ << os;
+	if (output_flags & OFStream) ofs_ << os;
+	return *this;
+}
+
+void OStreamManager::LogTime() {
+	TestOutputSchemeValidity();
+	if (output_flags & OStream1) os1_ << std::put_time(&tm_, TIME_FORMAT_STRING);
+	if (output_flags & OStream2) os2_ << std::put_time(&tm_, TIME_FORMAT_STRING);
+	if (output_flags & OFStream) ofs_ << std::put_time(&tm_, TIME_FORMAT_STRING);
+
+}
+void OStreamManager::UpdateTime() {
+	time_ = std::time(nullptr);
+	localtime_s(&tm_, &time_);
+}
+
+bool OStreamManager::IsOutputSchemeValid() const {
 	char masked_output_flags = defined_ouputs_ | ~output_flags;
 	return ((masked_output_flags & (masked_output_flags + 1)) == 0);
 }
@@ -52,26 +71,6 @@ bool OStreamManager::TestOutputSchemeValidity() {
 	if (throw_on_danger_)
 		throw std::invalid_argument("Manager set to write to a stream that wasn't setup");
 	return (output_scheme_validity);
-}
-
-void OStreamManager::UpdateTime() {
-	time_ = std::time(nullptr);
-	localtime_s(&tm_, &time_);
-}
-
-void OStreamManager::LogTime() {
-	TestOutputSchemeValidity();
-	if (output_flags & OStream1) os1_ << std::put_time(&tm_, TIME_FORMAT_STRING);
-	if (output_flags & OStream2) os2_ << std::put_time(&tm_, TIME_FORMAT_STRING);
-	if (output_flags & OFStream) ofs_ << std::put_time(&tm_, TIME_FORMAT_STRING);
-}
-
-OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&)) {
-	TestOutputSchemeValidity();
-	if (output_flags & OStream1) os1_ << os;
-	if (output_flags & OStream2) os2_ << os;
-	if (output_flags & OFStream) ofs_ << os;
-	return *this;
 }
 
 void StartConsole() {

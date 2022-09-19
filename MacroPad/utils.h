@@ -21,40 +21,23 @@ typedef unsigned char LoggerOutputFlags; // Flags used by OStreamMangaer to sele
 class OStreamManager {
 //Methods ++++++++++++++++++++++++++
 public:
-	void UpdateTime();
-
 	OStreamManager(
 		std::ostream& os1, std::ostream& os2,
-		const LoggerOutputFlags flags = OStream1 | OStream2,
-		bool throw_on_danger = DEFAULT_THROW_ON_OSM_DANGER);
+		const LoggerOutputFlags& flags = OStream1 | OStream2,
+		const bool& throw_on_danger = DEFAULT_THROW_ON_OSM_DANGER);
 	OStreamManager(
-		std::ostream& os1, std::string const& filename,
-		LoggerOutputFlags flags = OStream1 | OFStream,
-		bool throw_on_danger = DEFAULT_THROW_ON_OSM_DANGER);
+		std::ostream& os1, const std::string& filename,
+		const LoggerOutputFlags& flags = OStream1 | OFStream,
+		const bool& throw_on_danger = DEFAULT_THROW_ON_OSM_DANGER);
 	OStreamManager(
-		LoggerOutputFlags flags = OStream1 | OStream2,
-		bool throw_on_danger = DEFAULT_THROW_ON_OSM_DANGER);
+		const LoggerOutputFlags& flags = OStream1 | OStream2,
+		const bool& throw_on_danger = DEFAULT_THROW_ON_OSM_DANGER);
 
 	/**
-	 * @brief Checks if the OStreamManager output scheme matches the currently defined streams
-	 * @return true: when the current scheme is in line with the defined streams
-	 * false: when OStreamManager is set to output to undefined streams
+	 * @brief Writes the value of x given to the right of the "<<" operator, to the currently selected streams
+	 * @param os Value to be writen to the selected streams
 	*/
-	bool IsOutputSchemeValid();
-	/**
-	 * @brief Checks if the OStreamManager output scheme matches the currently defined streams.
-	 * Warns on std::cerr if the current stream is unclear.
-	 * Throws an error if the Macro THROW_ON_OSM_DANGER is set to true.
-	 * @return The value of IsOutputSchemeValid()
-	*/
-	bool TestOutputSchemeValidity();
-
-	/**
-	 * @brief Writes the time and date to the currently selected streams
-	*/
-	void LogTime();
-
-
+	OStreamManager& operator<<(std::ostream& (*os)(std::ostream&));
 	/**
 	 * @brief Writes the value of x given to the right of the "<<" operator, to the currently selected streams
 	 * @tparam T Type of X
@@ -68,11 +51,26 @@ public:
 		if (output_flags & OFStream) ofs_ << x;
 		return* this;
 	}
+
 	/**
-	 * @brief Writes the value of x given to the right of the "<<" operator, to the currently selected streams
-	 * @param os Value to be writen to the selected streams
+	 * @brief Writes the time and date to the currently selected streams
 	*/
-	OStreamManager& operator<<(std::ostream& (*os)(std::ostream&));
+	void LogTime();
+	void UpdateTime();
+
+	/**
+	 * @brief Checks if the OStreamManager output scheme matches the currently defined streams
+	 * @return true: when the current scheme is in line with the defined streams
+	 * false: when OStreamManager is set to output to undefined streams
+	*/
+	bool IsOutputSchemeValid() const;
+	/**
+	 * @brief Checks if the OStreamManager output scheme matches the currently defined streams.
+	 * Warns on std::cerr if the current stream is unclear.
+	 * Throws an error if the Macro THROW_ON_OSM_DANGER is set to true.
+	 * @return The value of IsOutputSchemeValid()
+	*/
+	bool TestOutputSchemeValidity();
 //END Methods ++++++++++++++++++++++++++
 
 //Attributes ++++++++++++++++++++++++++
@@ -80,12 +78,12 @@ public:
 	LoggerOutputFlags output_flags; // Binary mask used to select which streams to output to
 
 private:
-	std::tm tm_; // Used when writing time to streams
-	std::time_t time_; // Used when writing time to streams
-
 	std::ostream& os1_; // Output stream n1
 	std::ostream& os2_; // Output stream n2
 	std::ofstream ofs_; // Output file stream
+
+	std::tm tm_; // Used when writing time to streams
+	std::time_t time_; // Used when writing time to streams
 
 	LoggerOutputFlags defined_ouputs_; // Binary flags used to keep track of the currently defined streams
 
