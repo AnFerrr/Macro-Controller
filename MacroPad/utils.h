@@ -73,7 +73,22 @@ public:
 	bool TestOutputSchemeValidity();
 
 	void SetStream(std::ostream& os, LoggerOutputFlags stream_to_set);
-	void SetStream(std::ofstream& ofs);
+	void SetStream(const std::string& ofs) {
+		if (ofs_.is_open()) {
+			ofs_.close();
+			ofs_.flush();
+		}
+
+		ofs.open(ofs)
+		if (!ofs_.is_open()) {
+			output_flags &= ~OFStream;
+			defined_ouputs_ &= ~OFStream;
+			std::cerr << std::put_time(&tm_, TIME_FORMAT_STRING);
+			std::cerr << "Given file couldn't be opened" << std::endl;
+			if (throw_on_danger_)
+				throw std::runtime_error("Could not open file");
+		}
+	}
 	void SetStreams(std::ostream& os, std::ostream&, std::ofstream& ofs);
 	void SetStreams(std::ostream& os, std::ofstream& ofs);
 	void SetStreams(std::ostream& os, std::ostream& os);
