@@ -71,6 +71,12 @@ public:
 	 * @return The value of IsOutputSchemeValid()
 	*/
 	bool TestOutputSchemeValidity();
+
+	void SetStream(std::ostream& os, LoggerOutputFlags stream_to_set);
+	void SetStream(std::ofstream& ofs);
+	void SetStreams(std::ostream& os, std::ostream&, std::ofstream& ofs);
+	void SetStreams(std::ostream& os, std::ofstream& ofs);
+	void SetStreams(std::ostream& os, std::ostream& os);
 //END Methods ++++++++++++++++++++++++++
 
 //Attributes ++++++++++++++++++++++++++
