@@ -66,7 +66,7 @@ public:
 		if (output_flags & OStream1) os1_ << x;
 		if (output_flags & OStream2) os2_ << x;
 		if (output_flags & OFStream) ofs_ << x;
-		return *this;
+		return* this;
 	}
 	/**
 	 * @brief Writes the value of x given to the right of the "<<" operator, to the currently selected streams
@@ -83,8 +83,8 @@ private:
 	std::tm tm_; // Used when writing time to streams
 	std::time_t time_; // Used when writing time to streams
 
-	std::ostream& os1_; // Output stream n°1
-	std::ostream& os2_; // Output stream n°2
+	std::ostream& os1_; // Output stream n1
+	std::ostream& os2_; // Output stream n2
 	std::ofstream ofs_; // Output file stream
 
 	LoggerOutputFlags defined_ouputs_; // Binary flags used to keep track of the currently defined streams

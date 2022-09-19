@@ -7,7 +7,9 @@
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
 	StartConsole();
-	OStreamManager sm(std::cout, "MacroDebug.out", OStream1 | OFStream);
+	OStreamManager sm(std::cout, "MacroDebug.out");
+
+	sm << "i don\'t know why but i wanna do this\n";
 
 	PluginSDK::PluginManager pm;
 	pm.LoadPlugins();

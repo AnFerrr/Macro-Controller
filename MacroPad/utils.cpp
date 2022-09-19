@@ -6,7 +6,7 @@ OStreamManager::OStreamManager(std::ostream& os1, std::ostream& os2,
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OStream2),
 	throw_on_danger_(throw_on_danger) {
-	TestOutputSchemeValidity();
+		TestOutputSchemeValidity();
 };
 
 OStreamManager::OStreamManager(std::ostream& os1, std::string const& filename,
@@ -15,7 +15,16 @@ OStreamManager::OStreamManager(std::ostream& os1, std::string const& filename,
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OFStream),
 	throw_on_danger_(throw_on_danger) {
-	TestOutputSchemeValidity();
+		UpdateTime();
+		if (ofs_.is_open()) {
+			output_flags &= ~OFStream;
+			defined_ouputs_ &= ~OFStream;
+			std::cerr << std::put_time(&tm_, TIME_FORMAT_STRING);
+			std::cerr << "Given file couldn't be opened" << std::endl;
+			if (throw_on_danger_)
+				throw std::runtime_error("Could not open file");
+		}
+		TestOutputSchemeValidity();
 };
 
 OStreamManager::OStreamManager(LoggerOutputFlags flags, bool throw_on_danger) :
@@ -23,12 +32,13 @@ OStreamManager::OStreamManager(LoggerOutputFlags flags, bool throw_on_danger) :
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OStream2),
 	throw_on_danger_(throw_on_danger) {
-	TestOutputSchemeValidity();
+		TestOutputSchemeValidity();
 };
+#include <bitset>
 
 bool OStreamManager::IsOutputSchemeValid() {
 	UpdateTime();
-	char masked_output_flags = output_flags | ~defined_ouputs_;
+	char masked_output_flags = defined_ouputs_ | ~output_flags;
 	return ((masked_output_flags & (masked_output_flags + 1)) == 0);
 }
 
@@ -40,7 +50,7 @@ bool OStreamManager::TestOutputSchemeValidity() {
 		std::cerr << "Manager set to write to a stream that wasn't setup" << std::endl <<
 			TIME_MARGIN << "This may result in undefined behavior" << std::endl;
 	}
-	if (DEFAULT_THROW_ON_OSM_DANGER)
+	if (throw_on_danger_)
 		throw std::invalid_argument("Manager set to write to a stream that wasn't setup");
 	return (output_scheme_validity);
 }
