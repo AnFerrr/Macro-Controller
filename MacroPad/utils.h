@@ -78,8 +78,7 @@ public:
 			ofs_.close();
 			ofs_.flush();
 		}
-
-		ofs.open(ofs)
+		ofs_.open(ofs);
 		if (!ofs_.is_open()) {
 			output_flags &= ~OFStream;
 			defined_ouputs_ &= ~OFStream;
