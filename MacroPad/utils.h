@@ -90,7 +90,7 @@ public:
 	}
 	void SetStreams(std::ostream& os, std::ostream&, std::ofstream& ofs);
 	void SetStreams(std::ostream& os, std::ofstream& ofs);
-	void SetStreams(std::ostream& os, std::ostream& os);
+	void SetStreams(std::ostream& os, std::ostream& os2);
 //END Methods ++++++++++++++++++++++++++
 
 //Attributes ++++++++++++++++++++++++++
