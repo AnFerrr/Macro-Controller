@@ -4,6 +4,8 @@
 
 #include <PluginSDK.h>
 
+#include "framework.h"
+
 class UIPlugin : public PluginSDK::IPlugin {
 public: 
     UIPlugin();
