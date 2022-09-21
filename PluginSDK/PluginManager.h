@@ -18,6 +18,7 @@ namespace PluginSDK {
 
 		void RegisterGenericPlugin(PluginPointer plugin);
 	private:
+		// static PluginManager& instance ? + GetPm() ?
 		PluginList plugins;
 		std::string pluginsDir = "\\Plugins";
 	};

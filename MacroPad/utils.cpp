@@ -1,20 +1,20 @@
 #include "utils.h"
 
 OStreamManager::OStreamManager(std::ostream& os1, std::ostream& os2,
-		const LoggerOutputFlags& flags, const bool& throw_on_danger) :
-	os1_(os1), os2_(os2),
-	output_flags(flags),
-	defined_ouputs_(OStream1 | OStream2),
-	throw_on_danger_(throw_on_danger) {
+		const LoggerOutputFlags& flags, const bool& throw_on_danger)
+		: os1_(os1), os2_(os2),
+		output_flags(flags), defined_ouputs_(OStream1 | OStream2),
+		throw_on_danger_(throw_on_danger)
+{
 		TestOutputSchemeValidity();
 };
 
-OStreamManager::OStreamManager(std::ostream& os1, const std::string& filename,
-		const LoggerOutputFlags& flags, const bool& throw_on_danger) :
-	os1_(os1), os2_(std::cerr), ofs_(filename.c_str(), std::ios::out),
-	output_flags(flags),
-	defined_ouputs_(OStream1 | OFStream),
-	throw_on_danger_(throw_on_danger) {
+OStreamManager::OStreamManager(std::ostream& os1, const char* filename,
+		const LoggerOutputFlags& flags, const bool& throw_on_danger)
+		: os1_(os1), os2_(std::cerr), ofs_(filename, std::ios::out),
+		output_flags(flags), defined_ouputs_(OStream1 | OFStream),
+		throw_on_danger_(throw_on_danger)
+{
 		UpdateTime();
 		if (!ofs_.is_open()) {
 			output_flags &= ~OFStream;
@@ -27,15 +27,17 @@ OStreamManager::OStreamManager(std::ostream& os1, const std::string& filename,
 		TestOutputSchemeValidity();
 };
 
-OStreamManager::OStreamManager(const LoggerOutputFlags& flags, const bool& throw_on_danger) :
-	os1_(std::cout), os2_(std::cerr),
+OStreamManager::OStreamManager(const LoggerOutputFlags& flags, const bool& throw_on_danger)
+	: os1_(std::cout), os2_(std::cerr),
 	output_flags(flags),
 	defined_ouputs_(OStream1 | OStream2),
-	throw_on_danger_(throw_on_danger) {
+	throw_on_danger_(throw_on_danger)
+{
 		TestOutputSchemeValidity();
 };
 
-OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&)) {
+OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&))
+{
 	TestOutputSchemeValidity();
 	if (output_flags & OStream1) os1_ << os;
 	if (output_flags & OStream2) os2_ << os;
@@ -43,24 +45,28 @@ OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&)) {
 	return *this;
 }
 
-void OStreamManager::LogTime() {
+void OStreamManager::LogTime()
+{
 	TestOutputSchemeValidity();
 	if (output_flags & OStream1) os1_ << std::put_time(&tm_, TIME_FORMAT_STRING);
 	if (output_flags & OStream2) os2_ << std::put_time(&tm_, TIME_FORMAT_STRING);
 	if (output_flags & OFStream) ofs_ << std::put_time(&tm_, TIME_FORMAT_STRING);
 
 }
-void OStreamManager::UpdateTime() {
+void OStreamManager::UpdateTime()
+{
 	time_ = std::time(nullptr);
 	localtime_s(&tm_, &time_);
 }
 
-bool OStreamManager::IsOutputSchemeValid() const {
+bool OStreamManager::IsOutputSchemeValid() const
+{
 	char masked_output_flags = defined_ouputs_ | ~output_flags;
 	return ((masked_output_flags & (masked_output_flags + 1)) == 0);
 }
 
-bool OStreamManager::TestOutputSchemeValidity() {
+bool OStreamManager::TestOutputSchemeValidity()
+{
 	bool output_scheme_validity = IsOutputSchemeValid();
 	if (!output_scheme_validity) {
 		UpdateTime();
@@ -73,7 +79,8 @@ bool OStreamManager::TestOutputSchemeValidity() {
 	return (output_scheme_validity);
 }
 
-void StartConsole() {
+void StartConsole()
+{
 	AllocConsole();
 
 	FILE* newstdout = stdout, * newstdin = stdin, * newsterr = stderr;

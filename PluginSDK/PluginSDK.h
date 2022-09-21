@@ -53,6 +53,7 @@ namespace PluginSDK {
 		virtual void OnInit(){};
 		virtual void OnUnload(){};
 		virtual void OnRelease(){};
+		// TODO : static PluginMangaer& instance; ?
 	};
 
 	typedef std::shared_ptr<IPlugin> PluginPointer;
@@ -108,6 +109,7 @@ namespace PluginSDK {
 		 * @brief Current plugins location
 		*/
 		std::string pluginsDir;
+		// TODO : static PluginManager& instance ? + GetPm() ?
 	};
 
 	typedef void (_stdcall *register_plugin)(PluginManager& pm);
