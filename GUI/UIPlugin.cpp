@@ -1,6 +1,6 @@
 #include "UIPlugin.h"
 
-UIPlugin::UIPlugin() : name_("wxWidgetWrapper"), version_("0.0.0")
+UIPlugin::UIPlugin()
 {
 }
 
@@ -10,7 +10,7 @@ UIPlugin::~UIPlugin()
 
 std::string UIPlugin::GetVersion() const
 {
-	return version_;
+	return plugin_version_;
 }
 
 std::string UIPlugin::GetName() const
