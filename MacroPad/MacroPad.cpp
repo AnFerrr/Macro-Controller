@@ -7,6 +7,17 @@
 #include "OStreamManager.h"
 #include "PluginManager.h"
 
+bool g_ApplicationRunning = true;
+
+namespace MacroPad {
+	void Main(int argc, char** argv) {
+		while(g_ApplicationRunning) {
+			std::cout << "Allows the app to quick reboot" << std::endl;
+		}
+	}
+};
+
+#ifdef NO_CONSOLE
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
 	StartConsole();
 	OStreamManager stream_manager(std::cout, "MacroDebug.out");
@@ -17,6 +28,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ 
 	system("pause");
 	return 0;
 }
+#else
+int main () {
+	
+};
+#endif
+
 
 //TODO : Debug
 //TODO : Template
