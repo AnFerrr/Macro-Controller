@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="common\utils.cpp" />
+    <ClCompile Include="MacroCommon.cpp" />
+    <ClCompile Include="pluginSDK\APlugin.cpp" />
+    <ClCompile Include="pluginSDK\IPlugin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\utils.h" />
+    <ClInclude Include="MacroCommon.h" />
+    <ClInclude Include="pluginSDK\APlugin.h" />
+    <ClInclude Include="pluginSDK\IPlugin.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -112,6 +124,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>I:\Users\Antoine\source\repos\MacroPad\MacroCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -13,5 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{42c596a7-9414-41ce-ad1f-135d7b0400d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pluginSDK">
+      <UniqueIdentifier>{2108d28d-2d22-47fd-88d9-a0a4cd99f26c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\common">
+      <UniqueIdentifier>{5939da64-2404-4b9a-aa81-03a9f49c92da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\pluginSDK">
+      <UniqueIdentifier>{73b0bb70-7960-4f33-9064-b09c87d01ae4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MacroCommon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pluginSDK\IPlugin.cpp">
+      <Filter>Source Files\pluginSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utils.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="pluginSDK\APlugin.cpp">
+      <Filter>Source Files\pluginSDK</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MacroCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utils.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="pluginSDK\IPlugin.h">
+      <Filter>Header Files\pluginSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="pluginSDK\APlugin.h">
+      <Filter>Header Files\pluginSDK</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

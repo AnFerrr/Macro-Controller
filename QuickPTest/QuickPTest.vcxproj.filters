@@ -15,28 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MacroPad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OStreamManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="PTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MacroPad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="compile_guards.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OStreamManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="PTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
