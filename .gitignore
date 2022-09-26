@@ -381,3 +381,5 @@ PluginSDK/Untitled2
 MacroPad/debug.out
 /MacroPad/MacroDebug.out
 /MacroPad/KMtest.out
+MacroCommon/MacroCommon.layout
+MacroCommon/Makefile.win
