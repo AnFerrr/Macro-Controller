@@ -1,0 +1,3 @@
+EXPORTS
+    str_to_version @1
+    version_to_str @2

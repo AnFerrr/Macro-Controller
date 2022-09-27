@@ -1,26 +1,23 @@
 #pragma once
 
-#define PLUGIN_EXPORT
+#include "pluginSDK/plugin_export.h"
 
-#include "MacroCommon.h"
+#include "pluginSDK/IPlugin.h"
+#include "pluginSDK/APlugin.h"
 
-class PTest : public APTest
-{
+NAME("Keyboard manager")
+VERSION(0, 1)
+
+class Test : public MacroPad::PluginSDK::IPlugin {
 public:
-	PTest() = default;
-	~PTest() = default;
-
-	int finalFunction() const {
-		return 4;
-	}
-	void setsomething(ITest* itest, int val) {
-		itest->setValue(val);
-	}
-	int getValue() const {
-		return return_int(666);
-	}
+	Test() {
+	};
+	~Test(){
+	};
 };
 
-PLUGIN_DLL IPTest* __stdcall Load() {
-	return new PTest;
+typedef MacroPad::PluginSDK::IPlugin *IPointer;
+
+PLUGIN_DLL IPointer __stdcall Load() {
+	return new Test();
 }

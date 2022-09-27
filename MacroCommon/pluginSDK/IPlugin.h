@@ -6,18 +6,35 @@
 
 namespace MacroPad{
 	namespace PluginSDK {
+		/**
+		 * @brief Plugin interface. Is used to allow for plugin polymorphism
+		 * and compatibility between main program and DLLs,
+		 * across compilers.
+		*/
 		class IPlugin
 		{
 		public:
 			virtual ~IPlugin() = default;
 
-			virtual std::string GetName() const = 0;
+			/**
+			 * @brief Returns the name of the plugin.
+			 * @return The name of the plugin.
+			*/
+			virtual std::string GetName() const {};
+	
+			/**
+			 * @brief Returns the current version of the plugin.
+			 * @return The current version of the plugin.
+			*/
+			virtual s_version GetVersion() const {};
+			virtual std::string GetVersionStr() const {};
 
-			virtual s_version GetVersion() const = 0;
-			virtual std::string GetVersionStr() const = 0;
-
-			virtual s_version GetSDKVersion() const = 0;
-			virtual std::string GetSDKVersionStr() const = 0;
+			/**
+			 * @brief Returns the version of the SDK used to compile the
+			 * plugin.
+			*/
+			virtual s_version GetSDKVersion() const {};
+			virtual std::string GetSDKVersionStr() const {};
 
 			virtual void OnLoad() {};
 			virtual void OnInit() {};
@@ -26,3 +43,5 @@ namespace MacroPad{
 		};
 	}
 }
+
+// TODO : complete Macro to simplify registering for end devs
