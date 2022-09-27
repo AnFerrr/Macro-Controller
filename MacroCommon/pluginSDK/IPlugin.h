@@ -20,26 +20,26 @@ namespace MacroPad{
 			 * @brief Returns the name of the plugin.
 			 * @return The name of the plugin.
 			*/
-			virtual std::string GetName() const {};
+			virtual std::string GetName() const = 0;
 	
 			/**
 			 * @brief Returns the current version of the plugin.
 			 * @return The current version of the plugin.
 			*/
-			virtual s_version GetVersion() const {};
-			virtual std::string GetVersionStr() const {};
+			virtual s_version GetVersion() const = 0;
+			virtual std::string GetVersionStr() const = 0;
 
 			/**
 			 * @brief Returns the version of the SDK used to compile the
 			 * plugin.
 			*/
-			virtual s_version GetSDKVersion() const {};
-			virtual std::string GetSDKVersionStr() const {};
+			virtual s_version GetSDKVersion() const = 0;
+			virtual std::string GetSDKVersionStr() const = 0;
 
-			virtual void OnLoad() {};
-			virtual void OnInit() {};
-			virtual void OnUnload() {};
-			virtual void OnRelease() {};
+			virtual void OnLoad() = 0;
+			virtual void OnInit() = 0;
+			virtual void OnUnload() = 0;
+			virtual void OnRelease() = 0;
 		};
 	}
 }
