@@ -1,17 +1,12 @@
 #define CORE_EXPORT
 
-#include "utils.h"
+#include "common/utils.h"
 #include "common/core_export.h"
 
 #include <regex>
 #include <sstream>
 
-CORE_DLL std::string __stdcall version_to_str(const s_version& version)
-{
-	return version.major + "." + version.minor;
-}
-
-CORE_DLL s_version __stdcall str_to_version(const std::string version_str)
+CORE_DLL s_version __stdcall version_from_str(const char* version_str)
 {
 	s_version version{ -1, -1 };
 	if (!std::regex_match(version_str, std::regex("\\d+\\.\\d+")))

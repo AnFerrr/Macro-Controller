@@ -18,10 +18,10 @@
     <ClCompile Include="MacroPad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
+    <ClCompile Include="OStreamManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OStreamManager.cpp">
+    <ClCompile Include="local_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="MacroPad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="local_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="compile_guards.h">

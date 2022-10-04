@@ -38,6 +38,9 @@ namespace MacroPad{
 
 			virtual void OnLoad() = 0;
 			virtual void OnInit() = 0;
+
+			virtual void OnUpdate() = 0;
+
 			virtual void OnUnload() = 0;
 			virtual void OnRelease() = 0;
 		};

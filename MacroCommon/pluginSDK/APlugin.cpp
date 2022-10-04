@@ -1,35 +1,44 @@
+module;
+
 #define CORE_EXPORT
 
-#include "APlugin.h"
-
+#include <string>
 #include "common/utils.h"
 #include "pluginSDK/SDK_version.h"
+
+module APlugin;
 
 namespace MacroPad {
 	namespace PluginSDK {
 		std::string APlugin::GetName() const
 		{
-			return m_name_;
-		}
+			return m_name;
+		};
+
 		s_version APlugin::GetVersion() const
 		{
-			return m_version_;s
-		}
+			return version_from_str(m_version.c_str());
+		};
 		std::string APlugin::GetVersionStr() const
 		{
-			return version_to_str(m_version_);
-		}
+			return m_version;
+		};
+
 		s_version APlugin::GetSDKVersion() const
 		{
-			return m_sdk_version_;
-		}
+			return version_from_str(SDK_VERSION);
+		};
 		std::string APlugin::GetSDKVersionStr() const
 		{
-			return version_to_str(m_sdk_version_);
-		}
-		void APlugin::OnInit()
-		{
-			m_sdk_version_ = str_to_version(SDK_VERSION);
-		}
+			return SDK_VERSION;
+		};
+
+		void OnLoad() {};
+		void OnInit() {};
+
+		void OnUpdate() {};
+
+		void OnUnload() {};
+		void OnRelease() {};
 	}
 }

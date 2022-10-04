@@ -1,18 +1,13 @@
-#pragma once
+module;
 
 #include <string>
-
-#include "common/utils.h"
 #include "pluginSDK/IPlugin.h"
-#include "pluginSDK/SDK_version.h"
 
-// TODO : This shit causes issues when compiling core because NAME() is never called;
-#define NAME(name) #name;
-#define VERSION(version) #version;
+export module APlugin;
 
-namespace MacroPad{
+namespace MacroPad {
 	namespace PluginSDK {
-		class APlugin : public IPlugin
+		export class APlugin : public IPlugin
 		{
 		public:
 			virtual ~APlugin() = default;

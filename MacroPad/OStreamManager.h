@@ -1,11 +1,10 @@
 #pragma once
 
-#include <iostream>
-#include <iomanip>
+
 #include <fstream>
-#include <stdexcept>
-#include <regex>
-#include "utils.h"
+#include "local_utils.h"
+
+#include "benchmark/Benchmark.h"
 
 #define DEFAULT_THROW_ON_OSM_DANGER false
 
@@ -39,6 +38,7 @@ public:
 	template<class T>
 	OStreamManager& operator<<(const T& x)
 	{
+		PROFILE_FUNCTION;
 		TestOutputSchemeValidity();
 		if (output_flags & OStream1) os1_ << x;
 		if (output_flags & OStream2) os2_ << x;

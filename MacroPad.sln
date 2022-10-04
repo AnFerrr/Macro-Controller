@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MacroCommon", "MacroCommon\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickPTest", "QuickPTest\QuickPTest.vcxproj", "{1AB78781-F767-4721-B886-ABB28AC9261B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLB", "DLB\DLB.vcxproj", "{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{1AB78781-F767-4721-B886-ABB28AC9261B}.Release|x64.Build.0 = Release|x64
 		{1AB78781-F767-4721-B886-ABB28AC9261B}.Release|x86.ActiveCfg = Release|Win32
 		{1AB78781-F767-4721-B886-ABB28AC9261B}.Release|x86.Build.0 = Release|Win32
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Debug|x64.ActiveCfg = Debug|x64
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Debug|x64.Build.0 = Debug|x64
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Debug|x86.ActiveCfg = Debug|Win32
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Debug|x86.Build.0 = Debug|Win32
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Release|x64.ActiveCfg = Release|x64
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Release|x64.Build.0 = Release|x64
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Release|x86.ActiveCfg = Release|Win32
+		{D2ED7DDD-6574-4453-89F8-EC5FA77EE418}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

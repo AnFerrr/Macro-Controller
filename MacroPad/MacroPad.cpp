@@ -2,12 +2,19 @@
 #define UNICODE
 #endif 
 
+#include <windows.h>
+#include <iostream>
+#include <WinUser.h>
+#include <cstdio>
+
 #include "MacroPad.h"
 #include "OStreamManager.h"
-
 #include "pluginSDK/APlugin.h"
 #include "pluginSDK/IPlugin.h"
 
+#include "benchmark/Benchmark.h"
+
+#if 0
 bool g_ApplicationRunning = true;
 
 namespace MacroPad {
@@ -17,31 +24,42 @@ namespace MacroPad {
 		}
 	}
 };
-
+#endif 
 typedef MacroPad::PluginSDK::IPlugin *IPointer;
 typedef IPointer (__stdcall *LoadPTR)();
 
 #define NO_CONSOLE
 #ifdef NO_CONSOLE
-int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
+int WINAPI WinMain(
+	_In_ HINSTANCE hInstance,
+	_In_ HINSTANCE hPrevInstance,
+	_In_ LPSTR lpCmdLine,
+	_In_ int nShowCmd)
+{
+	AnFer::Benchmark::Instrumentor::Instance().BeginSession("Main", "Results AAA.json");
+	PROFILE_FUNCTION;
 	StartConsole();
+
 	OStreamManager stream_manager(std::cout, "MacroDebug.out");
+
 	//PluginManager pm;
 	//pm.LoadPlugins();
 	//std::cout << pm.GetPluginList() << std::endl;
+
 	HMODULE handle = LoadLibrary(L"QuickPTest.dll");
 	if (!handle) {
 		std::cout << "ma gueule" << std::endl;
 		return -1;
 		system("pause");
 	}
-	LoadPTR Load = (LoadPTR)GetProcAddress(handle, "Load");
-	if (!Load) {
-		std::cout << "No Load" << std::endl;
-		system("pause");
-		return -1;
-	}
-	IPointer plugin = Load();
+
+	//LoadPTR Load = (LoadPTR)GetProcAddress(handle, "Load");
+	//if (!Load) {
+	//	std::cout << "No Load" << std::endl;
+	//	system("pause");
+	//	return -1;
+	//}
+	//IPointer plugin = Load();
 	system("pause");
 	return 0;
 }

@@ -2,22 +2,16 @@
 
 #include "pluginSDK/plugin_export.h"
 
-#include "pluginSDK/IPlugin.h"
-#include "pluginSDK/APlugin.h"
+#include "pluginSDK/PluginSDK.h"
 
-NAME("Keyboard manager")
-VERSION(0, 1)
+import APlugin;
 
-class Test : public MacroPad::PluginSDK::IPlugin {
+class Test : public MacroPad::PluginSDK::APlugin {
 public:
-	Test() {
-	};
-	~Test(){
-	};
+	Test() {};
+	~Test() {};
 };
 
-typedef MacroPad::PluginSDK::IPlugin *IPointer;
-
-PLUGIN_DLL IPointer __stdcall Load() {
+PLUGIN_DLL PluginPointer __stdcall Load() {
 	return new Test();
 }

@@ -8,8 +8,7 @@ struct s_version {
 	int minor;
 };
 
-CORE_DLL std::string __stdcall version_to_str(const s_version& version);
-CORE_DLL s_version __stdcall str_to_version(const std::string version_str);
+CORE_DLL s_version __stdcall version_from_str(const char* version_str);
 
 // TODO : System tray notification mode
 // TODO : Main process + window process

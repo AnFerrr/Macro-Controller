@@ -39,6 +39,9 @@
     <ClCompile Include="pluginSDK\APlugin.cpp">
       <Filter>Source Files\pluginSDK</Filter>
     </ClCompile>
+    <ClCompile Include="pluginSDK\APlugin.ixx">
+      <Filter>Source Files\pluginSDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MacroCommon.h">
@@ -51,6 +54,12 @@
       <Filter>Header Files\pluginSDK</Filter>
     </ClInclude>
     <ClInclude Include="pluginSDK\APlugin.h">
+      <Filter>Header Files\pluginSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="pluginSDK\SDK_version.h">
+      <Filter>Header Files\pluginSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="pluginSDK\PluginSDK.h">
       <Filter>Header Files\pluginSDK</Filter>
     </ClInclude>
   </ItemGroup>

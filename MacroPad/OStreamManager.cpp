@@ -1,4 +1,11 @@
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+
 #include "OStreamManager.h"
+#include "local_utils.h"
+
+#include "benchmark/Benchmark.h"
 
 OStreamManager::OStreamManager(std::ostream& os1, std::ostream& os2,
 	const LoggerOutputFlags& flags, const bool& throw_on_danger)
@@ -6,6 +13,7 @@ OStreamManager::OStreamManager(std::ostream& os1, std::ostream& os2,
 	output_flags(flags), defined_ouputs_(OStream1 | OStream2),
 	throw_on_danger_(throw_on_danger)
 {
+	PROFILE_FUNCTION;
 	TestOutputSchemeValidity();
 };
 
@@ -15,6 +23,7 @@ OStreamManager::OStreamManager(std::ostream& os1, const char* filename,
 	output_flags(flags), defined_ouputs_(OStream1 | OFStream),
 	throw_on_danger_(throw_on_danger)
 {
+	PROFILE_FUNCTION;
 	UpdateTime();
 	if (!ofs_.is_open()) {
 		output_flags &= ~OFStream;
@@ -33,11 +42,13 @@ OStreamManager::OStreamManager(const LoggerOutputFlags& flags, const bool& throw
 	defined_ouputs_(OStream1 | OStream2),
 	throw_on_danger_(throw_on_danger)
 {
+	PROFILE_FUNCTION;
 	TestOutputSchemeValidity();
 };
 
 OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&))
 {
+	PROFILE_FUNCTION;
 	TestOutputSchemeValidity();
 	if (output_flags & OStream1) os1_ << os;
 	if (output_flags & OStream2) os2_ << os;
@@ -47,6 +58,7 @@ OStreamManager& OStreamManager::operator<<(std::ostream& (*os)(std::ostream&))
 
 void OStreamManager::LogTime()
 {
+	PROFILE_FUNCTION;
 	TestOutputSchemeValidity();
 	if (output_flags & OStream1) os1_ << std::put_time(&tm_, TIME_FORMAT_STRING);
 	if (output_flags & OStream2) os2_ << std::put_time(&tm_, TIME_FORMAT_STRING);
@@ -55,18 +67,21 @@ void OStreamManager::LogTime()
 }
 void OStreamManager::UpdateTime()
 {
+	PROFILE_FUNCTION;
 	time_ = std::time(nullptr);
 	localtime_s(&tm_, &time_);
 }
 
 bool OStreamManager::IsOutputSchemeValid() const
 {
+	PROFILE_FUNCTION;
 	char masked_output_flags = defined_ouputs_ | ~output_flags;
 	return ((masked_output_flags & (masked_output_flags + 1)) == 0);
 }
 
 bool OStreamManager::TestOutputSchemeValidity()
 {
+	PROFILE_FUNCTION;
 	bool output_scheme_validity = IsOutputSchemeValid();
 	if (!output_scheme_validity) {
 		UpdateTime();
