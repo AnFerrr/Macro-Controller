@@ -1,7 +1,8 @@
 #pragma once
 
-#ifdef SDK_EXPORT
-#define SDK_DLL extern "C" __declspec(dllexport)
+#define MP_BUILD_SDK_DLL
+#ifdef MP_BUILD_SDK_DLL
+#define MP_SDK_DLL __declspec(dllexport)
 #else
-#define SDK_DLL extern "C" __declspec(dllimport)
+#define MP_SDK_DLL __declspec(dllimport)
 #endif

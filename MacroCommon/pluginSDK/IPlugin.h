@@ -11,7 +11,7 @@ namespace MacroPad{
 		 * and compatibility between main program and DLLs,
 		 * across compilers.
 		*/
-		class IPlugin
+		class __declspec(dllexport) IPlugin
 		{
 		public:
 			virtual ~IPlugin() = default;

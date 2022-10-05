@@ -3,8 +3,10 @@
 #include <string>
 
 #include "common/utils.h"
-#include "pluginSDK/IPlugin.h"
-#include "pluginSDK/SDK_version.h"
+#include "IPlugin.h"
+
+#include "SDK_version.h"
+#include "SDK_export.h"
 
 // TODO : This shit causes issues when compiling core because NAME() is never called;
 #define NAME(name) #name;
@@ -12,7 +14,7 @@
 
 namespace MacroPad{
 	namespace PluginSDK {
-		class APlugin : public IPlugin
+		class __declspec(dllexport) APlugin : public IPlugin
 		{
 		public:
 			virtual ~APlugin() = default;
@@ -34,8 +36,10 @@ namespace MacroPad{
 			virtual void OnRelease();
 
 		private:
-			std::string m_name;
-			std::string m_version;
+#pragma warning(suppress: 4251) //m_name_ is only accessed through methods
+			std::string m_name_;
+#pragma warning(suppress: 4251) //m_version_ is only accessed through methods
+			std::string m_version_;
 
 			// TODO : static PluginMangaer& instance; ?
 		};

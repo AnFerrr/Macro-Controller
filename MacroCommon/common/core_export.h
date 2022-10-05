@@ -1,5 +1,5 @@
 #ifdef CORE_EXPORT
-#define CORE_DLL extern "C" __declspec(dllexport)
+#define CORE_DLL __declspec(dllexport)
 #else
-#define CORE_DLL extern "C" __declspec(dllimport)
+#define CORE_DLL __declspec(dllimport)
 #endif

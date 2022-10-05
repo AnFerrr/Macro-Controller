@@ -1,5 +1,5 @@
 #pragma once
 
-#include "pluginSDK/IPlugin.h"
+#include "IPlugin.h"
 
 typedef MacroPad::PluginSDK::IPlugin* PluginPointer;
