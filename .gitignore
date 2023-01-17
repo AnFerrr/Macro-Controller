@@ -383,3 +383,15 @@ MacroPad/debug.out
 /MacroPad/KMtest.out
 MacroCommon/MacroCommon.layout
 MacroCommon/Makefile.win
+/bin-obj/Debug-windows-x86_64
+/dev/sandbox
+/dev/tools/DevTools.vcxproj.filters
+/dev/tools/DevTools.vcxproj
+/dev/tools/Dev Tools.vcxproj.filters
+/dev/tools/Dev Tools.vcxproj
+/docs/html/html
+/PluginTemplate
+/PluginTest
+/Project1
+*.txt
+*.lnk

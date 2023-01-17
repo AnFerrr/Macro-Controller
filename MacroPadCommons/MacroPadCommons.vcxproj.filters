@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Events">
+      <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="directory">
+      <UniqueIdentifier>{FA110294-667C-B60A-AFBA-67B01B64945F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{078D880B-7396-887C-FC11-9F7C681A947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="plugin">
+      <UniqueIdentifier>{140E0515-00B0-2FEB-E96A-433FD5ABB63B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="profiling">
+      <UniqueIdentifier>{2F62F673-9BCC-AAEA-E40A-5C9050B4883F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="version">
+      <UniqueIdentifier>{4B6C0073-B74B-7F0E-C063-0AE52CC2E56F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Events\ApplicationEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\Event.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\KeyEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\MouseEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MacroPadCommons.h" />
+    <ClInclude Include="src\directory\directory.h">
+      <Filter>directory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\log\Log.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mppch.h" />
+    <ClInclude Include="src\plugin\function_types.h">
+      <Filter>plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plugin\plugin.h">
+      <Filter>plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plugin\sdk_version.h">
+      <Filter>plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\profiling\instrumentation_manager.h">
+      <Filter>profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\profiling\profiling_timer.h">
+      <Filter>profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\profiling\profiling_types.h">
+      <Filter>profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\version\version.h">
+      <Filter>version</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\directory\directory.cpp">
+      <Filter>directory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log\Log.cpp">
+      <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mppch.cpp" />
+    <ClCompile Include="src\version\version.cpp">
+      <Filter>version</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\version_test.cpp" />
+    <ClCompile Include="src\tests\directory_test.cpp" />
+  </ItemGroup>
+</Project>

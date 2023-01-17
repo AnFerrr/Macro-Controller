@@ -23,40 +23,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MacroCommon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pluginSDK\IPlugin.cpp">
-      <Filter>Source Files\pluginSDK</Filter>
-    </ClCompile>
-    <ClCompile Include="common\utils.cpp">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="pluginSDK\APlugin.cpp">
-      <Filter>Source Files\pluginSDK</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MacroCommon.h">
+    <ClInclude Include="src\common\core_export.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\utils.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="pluginSDK\IPlugin.h">
-      <Filter>Header Files\pluginSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="pluginSDK\APlugin.h">
-      <Filter>Header Files\pluginSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="pluginSDK\SDK_version.h">
-      <Filter>Header Files\pluginSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="pluginSDK\PluginSDK.h">
-      <Filter>Header Files\pluginSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="pluginSDK\SDK_export.h">
-      <Filter>Header Files\pluginSDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
