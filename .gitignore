@@ -381,5 +381,6 @@ FodyWeavers.xsd
 /MacroPadTesting/packages.config
 /older_plugin_test
 *.vcxproj
+*.vcxproj.user
 *.vcxproj.filters
 *.sln
