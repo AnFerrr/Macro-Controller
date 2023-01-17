@@ -49,7 +49,6 @@ int main(int argc, char** argv)
 
 	if (macropad::directory_management::check_directory(plugin_dir_path) == -1) {
 		macropad::directory_management::create_directory(plugin_dir_path);
-		return -1;
 	}
 
 	loadPlugins(plugin_dir_path, plugins);
