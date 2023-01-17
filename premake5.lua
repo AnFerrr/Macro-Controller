@@ -1,6 +1,6 @@
 newoption {
    trigger = "dev",
-   description = "Adds to the solutions a couple of directories used only for developpement"
+   description = "Adds to the solutions a couple of directories used for developpement"
 }
 
 workspace "MacroPad"
@@ -14,14 +14,40 @@ workspace "MacroPad"
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	filter "system:windows"
+		cppdialect "C++20"
+		staticruntime "off"
+		systemversion "latest"
 
-IncludeDir = {}
-IncludeDir["GLFW"] = "MacroPadCommons/vendor/GLFW/include"
+		defines "MP_PLATFORM_WINDOWS"
 
-group "Dependecies"
-	include "MacroPadCommons/vendor/GLFW"
-group ""
+	filter "configurations:Debug"
+		defines 
+		{
+			"MP_DEBUG",
+			"PROFILING"
+		}
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "MP_RELEASE"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "MP_DIST"
+		optimize "On"
+		flags "NoIncrementalLink"
+
+	filter {}
+
+	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+	IncludeDir = {}
+	IncludeDir["GLFW"] = "MacroPadCommons/vendor/GLFW/include"
+
+	group "Dependecies"
+		include "MacroPadCommons/vendor/GLFW"
+	group ""
 
 project "MacroPad"
 	location "MacroPad"
@@ -45,32 +71,8 @@ project "MacroPad"
 		"MacroPadCommons/src"
 	}
 
-	links { "MacroPadCommons" }
+	links "MacroPadCommons"
 
-
-	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "off"
-		systemversion "latest"
-
-		defines { "MP_PLATFORM_WINDOWS" }
-
-	filter "configurations:Debug"
-		defines 
-		{
-			"MP_DEBUG",
-			"PROFILING"
-		}
-		symbols "On"
-
-	filter "configurations:Release"
-		defines "MP_RELEASE"
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "MP_DIST"
-		optimize "On"
-		flags "NoIncrementalLink"
 
 project "MacroPadCommons"
 	location "MacroPadCommons"
@@ -104,37 +106,13 @@ project "MacroPadCommons"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "off"
-		systemversion "latest"
-
-		defines
-		{
-			"MP_PLATFORM_WINDOWS",
-			"MP_BUILD_COMMONS"
-		}
+		defines "MP_BUILD_COMMONS"
 
 		postbuildcommands
 		{
 			("echo %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/MacroPad"),
 			("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/MacroPad/\"")
 		}
-
-	filter "configurations:Debug"
-		defines {
-			"MP_DEBUG",
-			"PROFILING"
-		}
-		symbols "On"
-
-	filter "configurations:Release"
-		defines "MP_RELEASE"
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "MP_DIST"
-		optimize "On"
-		flags "NoIncrementalLink"
 
 project "PluginTemplate"
 	location "PluginTemplate"
@@ -211,20 +189,11 @@ project "PluginTest"
 		"%{prj.name}/src"
 	}
 
-	links{
-		"MacroPadCommons"
-	}
+	links "MacroPadCommons"
 
 	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "off"
-		systemversion "latest"
 
-		defines
-		{
-			"MP_PLATFORM_WINDOWS",
-			"MP_BUILD_PLUGIN"
-		}
+		defines "MP_BUILD_PLUGIN"
 
 		postbuildcommands
 		{
@@ -276,15 +245,7 @@ if _OPTIONS["dev"] then
 			}
 
 			filter "system:windows"
-				cppdialect "C++20"
-				staticruntime "off"
-				systemversion "latest"
-
-				defines
-				{
-					"MP_PLATFORM_WINDOWS",
-					"MP_BUILD_PLUGIN"
-				}
+				defines "MP_BUILD_PLUGIN"
 
 			filter "configurations:Debug"
 				defines "MP_PLUGIN_DEBUG"
@@ -308,5 +269,56 @@ if _OPTIONS["dev"] then
 			vpaths {
 				["Build"] = { "premake5.lua", "generate_project.ps1" }
 			}
+
+		project "Testing"
+			location "Testing"
+			kind "ConsoleApp"
+			language "C++"
+			callingconvention ("StdCall")
+
+			targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+			objdir ("bin-obj/" .. outputdir .. "/%{prj.name}")
+
+			files
+			{
+				"%{prj.name}/tests/**.h",
+				"%{prj.name}/tests/**.cpp"
+			}
+
+			includedirs
+			{
+				"vendor/GTest/googletest/include",
+				"%{prj.name}/tests",
+				"MacroPadCommons/vendor/spdlog/include",
+				"MacroPadCommons/src"
+			}
+
+			links { "MacroPadCommons", "GTest" }
 	group ""
 end
+
+group "Dependecies"
+	project "GTest"
+		location "vendor/GTest/googletest"
+			kind "StaticLib"
+			language "C++"
+			callingconvention ("StdCall")
+
+			targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+			objdir ("bin-obj/" .. outputdir .. "/%{prj.name}")
+
+			googletestdir = "vendor/%{prj.name}/googletest/"
+			sourcedir = googletestdir .. "src/"
+
+			files
+			{
+				sourcedir .. "**.cc",
+				sourcedir .. "**.h"
+			}
+
+			includedirs
+			{
+				googletestdir,
+				googletestdir .. "include"
+			}
+group ""
