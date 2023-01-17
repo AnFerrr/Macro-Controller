@@ -20,9 +20,9 @@ namespace macropad::directory_management
 	 *
 	 * @param dir: The path to the directory to create.
 	 *
-	 * @return True if the directory was created succesfully, false otherwise
+	 * @return 1 if the directory was created succesfully, -1 if the directory already exists, -2 for other errors.
 	 */
-	CORE_DLL bool create_directory(const std::string& dir);
+	CORE_DLL int create_directory(const std::string& dir);
 
 	/**
 	 * @brief Lists all regular files in the specified directory
