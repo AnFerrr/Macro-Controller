@@ -1,23 +1,11 @@
-#include "mppch.h"
+
 
 //#define MP_TESTING_DIRECTORY
 #ifdef MP_TESTING_DIRECTORY
-#include "CppUnitTest.h"
 
-#include <directory/directory.h>
-#include <log/Log.h>
-
-#include <fstream>
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-namespace fs = std::filesystem;
 
 namespace macropad::commons::directory_management::tests
 {
-	const fs::path tmp_test_directory(fs::temp_directory_path() / "macropad_testing");
-	const fs::path empty_directory(tmp_test_directory / "empty_directory");
-	const fs::path non_empty_directory(tmp_test_directory / "non_empty_directory");
-	const fs::path text_file(non_empty_directory / "text_file.txt");
 
 	TEST_CLASS(Check_Directory)
 	{

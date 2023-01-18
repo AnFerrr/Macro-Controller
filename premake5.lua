@@ -42,12 +42,12 @@ workspace "MacroPad"
 
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-	IncludeDir = {}
-	IncludeDir["GLFW"] = "MacroPadCommons/vendor/GLFW/include"
+--	IncludeDir = {}
+--	IncludeDir["GLFW"] = "MacroPadCommons/vendor/GLFW/include"
 
-	group "Dependecies"
-		include "MacroPadCommons/vendor/GLFW"
-	group ""
+--	group "Dependecies"
+--		include "MacroPadCommons/vendor/GLFW"
+--	group ""
 
 project "MacroPad"
 	location "MacroPad"
@@ -72,7 +72,6 @@ project "MacroPad"
 	}
 
 	links "MacroPadCommons"
-
 
 project "MacroPadCommons"
 	location "MacroPadCommons"
@@ -111,7 +110,8 @@ project "MacroPadCommons"
 		postbuildcommands
 		{
 			("echo %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/MacroPad"),
-			("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/MacroPad/\"")
+			("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/MacroPad/\""),
+			("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Testing/\"")
 		}
 
 project "PluginTemplate"

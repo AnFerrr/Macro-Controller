@@ -384,3 +384,4 @@ FodyWeavers.xsd
 *.vcxproj.user
 *.vcxproj.filters
 *.sln
+*.dll
