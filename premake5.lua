@@ -13,13 +13,8 @@ workspace "MacroPad"
 		"Release",
 		"Dist"
 	}
-
-	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "off"
-		systemversion "latest"
-
-		defines "MP_PLATFORM_WINDOWS"
+	cppdialect "C++20"
+	staticruntime "off"
 
 	filter "configurations:Debug"
 		defines 
@@ -36,7 +31,16 @@ workspace "MacroPad"
 	filter "configurations:Dist"
 		defines "MP_DIST"
 		optimize "On"
-		flags "NoIncrementalLink"
+
+	filter "system:windows"
+		systemversion "latest"
+		defines "MP_PLATFORM_WINDOWS=1"
+		filter "configurations:Dist"
+			flags "NoIncrementalLink"
+
+	filter "system:linux"
+		cppdialect "C++20"
+		defines "MP_PLATFORM_LINUX=1"
 
 	filter {}
 
@@ -104,15 +108,13 @@ project "MacroPadCommons"
 		--"opengl32.lib"
 	}
 
-	filter "system:windows"
-		defines "MP_BUILD_COMMONS"
+	defines "MP_BUILD_COMMONS"
 
-		postbuildcommands
-		{
-			("echo %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/MacroPad"),
-			("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/MacroPad/\""),
-			("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Testing/\"")
-		}
+	postbuildcommands
+	{
+		("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/MacroPad/\""),
+		("{COPYDIR} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Testing/\"")
+	}
 
 project "PluginTemplate"
 	location "PluginTemplate"
@@ -138,34 +140,29 @@ project "PluginTemplate"
 
 	links { "MacroPadCommons" }
 
-	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "off"
-		systemversion "latest"
+	defines
+	{
+		"MP_BUILD_PLUGIN"
+	}
 
-		defines
-		{
-			"MP_PLATFORM_WINDOWS",
-			"MP_BUILD_PLUGIN"
-		}
+	postbuildcommands
+	{
+		("{MKDIR} %{wks.location}/MacroPad/plugins"),
+		("{COPYDIR} %{cfg.buildtarget.relpath} ../MacroPad/plugins")
+	}
 
-		postbuildcommands
-		{
-			("{COPYDIR} %{cfg.buildtarget.relpath} ../MacroPad/plugins")
-		}
-
-	filter "configurations:Debug"
-		defines "MP_PLUGIN_DEBUG"
-		symbols "On"
-
-	filter "configurations:Release"
-		defines "MP_PLUGIN_RELEASE"
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "MP_PLUGIN_DIST"
-		optimize "On"
-		flags "NoIncrementalLink"
+--	filter "configurations:Debug"
+--		defines "MP_PLUGIN_DEBUG"
+--		symbols "On"
+--
+--	filter "configurations:Release"
+--		defines "MP_PLUGIN_RELEASE"
+--		optimize "On"
+--
+--	filter "configurations:Dist"
+--		defines "MP_PLUGIN_DIST"
+--		optimize "On"
+--		flags "NoIncrementalLink"
 
 project "PluginTest"
 	location "PluginTest"
@@ -197,6 +194,7 @@ project "PluginTest"
 
 		postbuildcommands
 		{
+			("{MKDIR} %{wks.location}/MacroPad/plugins"),
 			("{COPYDIR} %{cfg.buildtarget.relpath} ../MacroPad/plugins")
 		}
 
@@ -298,6 +296,7 @@ if _OPTIONS["dev"] then
 end
 
 group "Dependecies"
+	if _OPTIONS["dev"] then
 	project "GTest"
 		location "vendor/GTest/googletest"
 			kind "StaticLib"
@@ -321,4 +320,5 @@ group "Dependecies"
 				googletestdir,
 				googletestdir .. "include"
 			}
+	end
 group ""
