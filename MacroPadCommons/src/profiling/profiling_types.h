@@ -5,6 +5,9 @@
 
 namespace macropad::profiling
 {
+	/**
+	 * @brief Holds time profiling data.
+	 */
 	struct timing_profile
 	{
 		const std::string name;

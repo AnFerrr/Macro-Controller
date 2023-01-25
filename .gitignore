@@ -385,3 +385,12 @@ FodyWeavers.xsd
 *.vcxproj.filters
 *.sln
 *.dll
+/doc
+/bin-obj/Debug-linux-x86_64
+/dev/tools/Makefile
+/MacroPad/plugins
+/MacroPad/Makefile
+/MacroPad/profiling_result.json
+/Testing/Makefile
+/Makefile
+/MacroPadCommons/.ignore

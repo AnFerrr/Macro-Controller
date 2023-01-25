@@ -7,6 +7,9 @@
 
 namespace macropad::profiling
 {
+	/**
+	 * @brief Used to measure time performance of functions or scopes.
+	 */
 	class ProfilingTimer
 	{
 		macropad::profiling::timing_profile result;
@@ -16,6 +19,9 @@ namespace macropad::profiling
 
 	public:
 
+		/**
+		 * @param name: name of the profiled scope.
+		 */
 		ProfilingTimer(const std::string& name)
 			: result({ name, 0, 0, 0 })
 			, is_stopped(false)
@@ -29,6 +35,10 @@ namespace macropad::profiling
 				Stop();
 		}
 
+		/**
+		 * @brief Stops the profiling and writes them to file.
+		 * 
+		 */
 		void Stop()
 		{
 			auto endTimepoint = std::chrono::high_resolution_clock::now();
@@ -36,6 +46,7 @@ namespace macropad::profiling
 			result.start = std::chrono::time_point_cast<std::chrono::microseconds>(start_timepoint).time_since_epoch().count();
 			result.end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 			result.thread_id = std::hash<std::thread::id>{}(std::this_thread::get_id());
+
 			InstrumentationManager::Instance().WriteProfile(result);
 
 			is_stopped = true;
@@ -44,7 +55,13 @@ namespace macropad::profiling
 }
 
 #ifdef PROFILING
-#define TIMING_SCOPE(name) macropad::profiling::ProfilingTimer timer##__LINE__(name)
+/**
+ * @brief Measures time taken by a function.
+ */
+#define TIMING_SCOPE(name) macropad::profiling::ProfilingTimer timer##__LINE__(name) /**> */
+/**
+ * @brief Measures time taken by a scope.
+ */
 #define TIMING_FUNCTION()  TIMING_SCOPE(__FUNCTION__)
 #else
 #define TIMINGE_SCOPE(name)

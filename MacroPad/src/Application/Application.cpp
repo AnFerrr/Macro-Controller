@@ -15,29 +15,26 @@ MacroPad::Application::~Application()
 {
 }
 
-void LoadDLL()
-{
-	HINSTANCE hm = LoadLibraryA("DevSandbox.dll");
-	if (!hm) {
-		MP_CORE_ERROR("DLL Couldn't be loaded! Aborting...");
-		return;
-	}
-
-	void (*remoteLog)() = (void (*)())GetProcAddress(hm, "RemoteLog");
-	if (remoteLog)
-		remoteLog();
-	else
-		MP_CORE_ERROR("RemoteLog Couldn't be fetched! Aborting...");
-
-	FreeLibrary(hm);
-}
+//void LoadDLL()
+//{
+//	HINSTANCE hm = LoadLibraryA("DevSandbox.dll");
+//	if (!hm) {
+//		MP_CORE_ERROR("DLL Couldn't be loaded! Aborting...");
+//		return;
+//	}
+//
+//	void (*remoteLog)() = (void (*)())GetProcAddress(hm, "RemoteLog");
+//	if (remoteLog)
+//		remoteLog();
+//	else
+//		MP_CORE_ERROR("RemoteLog Couldn't be fetched! Aborting...");
+//
+//	FreeLibrary(hm);
+//}
 
 // Make singleton to access important data everywhere
 
 // ------- TEMP -----------------------------------------------------
-#define WIN32_LEAN_AND_MEAN 
-#include <Windows.h>
-#include <WinUser.h>
 //#include "Events/Event.h"
 //#include "Events/KeyEvent.h"
 // ------------------------------------------------------------------
@@ -54,22 +51,22 @@ void LoadDLL()
 
 void LoadPlugins();
 
-void MacroPad::Application::Run()
-{
-	// ------- TEMP -----------------------------------------------------
-	MP_CORE_INFO("Waiting for keyboard input...")
-	while (!(GetKeyState('A') & 0x8000) && g_ApplicationRunning) {
-		int a = 0;
-		if ((GetKeyState(VK_ESCAPE) & 0x8000))
-			g_ApplicationRunning = false;
-		if ((GetKeyState('R') & 0x80000)) {
-			MP_CORE_INFO("Trying to load DLL");
-			LoadDLL();
-		}
-		//if ((GetKeyState('X') & 0x8000)) {
-		//	KeyPressedEvent e('x', 0);
-		//	OnEvent(e);
-		//}
-	}
-	// ------------------------------------------------------------------
-}
+//void MacroPad::Application::Run()
+//{
+//	// ------- TEMP -----------------------------------------------------
+//	MP_CORE_INFO("Waiting for keyboard input...")
+//	while (!(GetKeyState('A') & 0x8000) && g_ApplicationRunning) {
+//		int a = 0;
+//		if ((GetKeyState(VK_ESCAPE) & 0x8000))
+//			g_ApplicationRunning = false;
+//		if ((GetKeyState('R') & 0x80000)) {
+//			MP_CORE_INFO("Trying to load DLL");
+//			//LoadDLL();
+//		}
+//		//if ((GetKeyState('X') & 0x8000)) {
+//		//	KeyPressedEvent e('x', 0);
+//		//	OnEvent(e);
+//		//}
+//	}
+//	// ------------------------------------------------------------------
+//}

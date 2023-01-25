@@ -11,7 +11,7 @@ namespace macropad::directory_management
 	 *
 	 * @param dir: The path to the directory to check.
 	 *
-	 * @return True if the directory exists and is not empty, false otherwise
+	 * @return true if the directory exists and is not empty, false otherwise
 	 */
 	CORE_DLL int check_directory(const std::string& dir);
 
@@ -20,7 +20,7 @@ namespace macropad::directory_management
 	 *
 	 * @param dir: The path to the directory to create.
 	 *
-	 * @return 1 if the directory was created succesfully, -1 if the directory already exists, -2 for other errors.
+	 * @return 1 if the directory was created successfully, -1 if the directory already exists, -2 for other errors.
 	 */
 	CORE_DLL int create_directory(const std::string& dir);
 

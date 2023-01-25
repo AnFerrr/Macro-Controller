@@ -4,8 +4,14 @@
 #include "mppch.h"
 #include "profiling_types.h"
 
+// Todo: rework to allow for more profiling types
 namespace macropad::profiling
 {
+	/**
+	 * @brief Manages the various profiling tools.
+	 * 
+	 * Get from InstrumentationManager::Instance().
+	 */
 	class InstrumentationManager
 	{
 		std::string session_name = "None";
@@ -18,6 +24,9 @@ namespace macropad::profiling
 
 	public:
 
+		/**
+		 * @return Returns a pointer to the manager.
+		 */
 		static InstrumentationManager& Instance()
 		{
 			static InstrumentationManager instance;
@@ -29,6 +38,12 @@ namespace macropad::profiling
 			EndSession();
 		}
 
+		/**
+		 * @brief Starts an instrumentation session.
+		 *
+		 * @param name: name of the session.
+		 * @param filepath: path to the file to fill with profiling data.
+		 */
 		void BeginSession(const std::string& name, const std::string& filepath = "profiling_result.json")
 		{
 			if (is_session_active)
@@ -40,6 +55,9 @@ namespace macropad::profiling
 			session_name = name;
 		}
 
+		/**
+		 * @brief Ends the profiling session.
+		 */
 		void EndSession()
 		{
 			if (!is_session_active)
@@ -51,6 +69,11 @@ namespace macropad::profiling
 			is_session_active = 0;
 		}
 
+		/**
+		 * @brief Writes the given results to file.
+		 * 
+		 * @param result: results to write.
+		 */
 		void WriteProfile(const macropad::profiling::timing_profile& result)
 		{
 			std::lock_guard<std::mutex> lock(mutex_lock);

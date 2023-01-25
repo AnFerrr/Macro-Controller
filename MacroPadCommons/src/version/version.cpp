@@ -2,6 +2,8 @@
 
 #include "version.h"
 
+
+// TODO : Make sure plugins can't modify core versions
 namespace macropad
 {
 	Version4::Version4() : major(0), minor(0), patch(0), build(0) {};
@@ -10,10 +12,7 @@ namespace macropad
 
 	Version4::Version4(const char* version_str)
 	{
-		std::regex regex(macropad::version::regex_str);
-
-		if (!std::regex_match(version_str, regex))
-		{
+		if (!version::is_version_string(version_str)) {
 			major = -1;
 			minor = -1;
 			patch = -1;
@@ -38,8 +37,18 @@ namespace macropad
 		build = values[3];
 	}
 
-	std::ostream& operator<<(std::ostream& output, const Version4& version)
+	bool version::is_version_string(const char* version_str)
 	{
-		return output << version.major << "." << version.minor << "." << version.patch << "." << version.build;
+		std::regex regex(macropad::version::version_format);
+
+		if (std::regex_match(version_str, regex))
+			return true;
+
+		return false;
 	}
+}
+
+std::ostream& operator<<(std::ostream& output, const macropad::Version4& version)
+{
+	return output << version.major << "." << version.minor << "." << version.patch << "." << version.build;
 }

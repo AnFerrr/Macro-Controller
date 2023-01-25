@@ -19,7 +19,9 @@
 #include <algorithm>
 #include <stdexcept>
 
+#if defined(_WIN32)
 #define WIN32_LEAN_AND_MEAN // Allows for a lighter windows.h
 #include <windows.h>
+#endif
 
 #include <filesystem>

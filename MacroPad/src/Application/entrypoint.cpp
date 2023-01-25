@@ -14,7 +14,7 @@ namespace MacroPad {
 			MP_CORE_INFO("Starting...");
 			MP_CORE_TRACE("- - - - Welcome to MacroPad - - - -")
 			Application app;
-			app.Run();
+			//app.Run();
 			if (g_ApplicationRunning)
 				MP_CORE_INFO("Restarting MacroPad...");
 		}
@@ -42,9 +42,9 @@ int main(int argc, char** argv)
 {
 	macropad::profiling::InstrumentationManager::Instance().BeginSession("Program");
 
-	macropad::logging::Log::Init();
+	macropad::logging::LoggingManager::Init();
 
-	std::string plugin_dir_path = "./plugin";
+	std::string plugin_dir_path = "./plugins";
 	std::vector<macropad::plugin::mp_plugin> plugins;
 
 	if (macropad::directory_management::check_directory(plugin_dir_path) == -1) {

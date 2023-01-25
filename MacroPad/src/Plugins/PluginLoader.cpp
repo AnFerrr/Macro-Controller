@@ -4,7 +4,7 @@
 #include "PluginLoader.h"
 #include <profiling/profiling_timer.h>
 #include <directory/directory.h>
-#include <plugin/function_types.h>
+#include <plugin/plugin_types.h>
 
 /**
  * @brief Gets the list of libraries in the specified directory
@@ -38,7 +38,7 @@ void MPLoadLibrary(const std::string& library_path, macropad::plugin::mp_plugin&
 	MP_CORE_TRACE("Loading library {} to memory...", library_path);
 	MP_CORE_INDENT();
 
-	plugin.handle = LoadLibraryA(library_path.c_str());
+	plugin.handle = mp_load_library(library_path.c_str());
 	plugin.name = library_path.substr(library_path.find_last_of('/') + 1);
 
 	if (plugin.handle) {
@@ -57,7 +57,7 @@ void MPLoadLibrary(const std::string& library_path, macropad::plugin::mp_plugin&
  * @param handle The handle to the library from which to retrieve data.
  * @param plugin The plugin struct to be filled.
  */
-void fillPlugin(HMODULE& handle, macropad::plugin::mp_plugin& plugin)
+void fillPlugin(plugin_handle& handle, macropad::plugin::mp_plugin& plugin)
 {
 	TIMING_FUNCTION();
 	plugin.init = (macropad::plugin::int_return_function)getDLLFunction<int>(handle, "mpInit", true);
@@ -143,7 +143,7 @@ void loadPlugins(const std::string& dir, std::vector<macropad::plugin::mp_plugin
 		}
 		catch (const std::runtime_error e) {
 			macropad::logging::cannot_load_plugin(plugin.name.c_str(), e.what());
-			FreeLibrary(plugin.handle);
+			mp_close_library(plugin.handle);
 		}
 		MP_CORE_RESET_INDENT();
 	}
@@ -163,7 +163,7 @@ void releasePlugins(std::vector<macropad::plugin::mp_plugin>& plugins) {
 		MP_CORE_TRACE("Freeing: {}", plugin.name);
 		if (plugin.release)
 			plugin.release();
-		FreeLibrary(plugin.handle);
+		mp_close_library(plugin.handle);
 		MP_CORE_RESET_INDENT();
 	}
 }
